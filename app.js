@@ -20,7 +20,7 @@ function encodePayload(payload) {
     const bytes = new TextEncoder().encode(jsonString);
     return encodeBase62(bytes);
 }
-"bp": [0,
+const DEFAULT_BP = [0,
         0,
         0,
         0,
