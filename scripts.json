@@ -1,6 +1,6 @@
 [
   {
-    "id": "01",
+    "id": "01a03308-5749-732b-8612-4345a4e94224",
     "title": "Neuron Network AI",
     "description": "Actual Neuron Network inside Nulls Brawl. Used brawler as Starr nova",
     "health": "100 HP",
@@ -8,7 +8,7 @@
     "date": "22.09.2026"
   },
   {
-    "id": "02",
+    "id": "18f921e4-39c2-48f1-a1e6-9b5a2b3d8c11",
     "title": "Spawn Car",
     "description": "This script spawns a car in middle of map",
     "health": "250 HP",
