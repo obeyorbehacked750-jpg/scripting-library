@@ -1,15 +1,22 @@
 [
   {
-    "id": "01a03308-5749-732b-8612-4345a4e94224",
+    "id": "01a0baf4-a8b9-7057-b68b-25e6f62d9c09",
     "title": "Neuron Network AI",
     "description": "Actual Neuron Network inside Nulls Brawl. Used brawler as Starr nova.",
     "author": "ChipyDev",
     "date": "22.09.2026"
   },
   {
-    "id": "18f921e4-39c2-48f1-a1e6-9b5a2b3d8c11",
+    "id": "01a0d7f3-5779-7caa-98a0-b42c6c167920",
     "title": "Spawn Car",
     "description": "This script spawns a car in the middle of the map.",
+    "author": "ChipyDev",
+    "date": "25.09.2026"
+  },
+  {
+    "id": "01a0e416-df6b-757b-a846-234d451cb5f6",
+    "title": "Hide and seek",
+    "description": "Скрипт От @SLem , В Данном Скрипте Игроки Если Стоят 0.5 Секунд То Становятся Кустами!",
     "author": "ChipyDev",
     "date": "25.09.2026"
   }
