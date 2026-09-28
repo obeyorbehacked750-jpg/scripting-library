@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +24,39 @@
             </div>
         </main>
     </div>
+
+    <!-- Create Script Modal -->
+    <div id="create-modal" class="_modalOverlay_1b912_hidden">
+        <div class="_modalCard_1b912_20">
+            <h2 class="_modalTitle_1b912_25">Create Friendly Battle Script</h2>
+            <form id="create-script-form">
+                <div class="_inputGroup_1b912_10">
+                    <label class="_label_1b912_14" for="script-title">Title</label>
+                    <input class="_input_1b912_10" type="text" id="script-title" required placeholder="e.g. Meteor Storm">
+                </div>
+                <div class="_inputGroup_1b912_10">
+                    <label class="_label_1b912_14" for="script-description">Description</label>
+                    <textarea class="_input_1b912_10" id="script-description" required placeholder="Describe what your script does..."></textarea>
+                </div>
+                <div class="_inputGroup_1b912_10">
+                    <label class="_label_1b912_14" for="script-health">Health / Stats</label>
+                    <input class="_input_1b912_10" type="text" id="script-health" required placeholder="e.g. 500 HP">
+                </div>
+                <div class="_inputGroup_1b912_10">
+                    <label class="_label_1b912_14" for="script-author">Author</label>
+                    <input class="_input_1b912_10" type="text" id="script-author" required placeholder="e.g. YourName">
+                </div>
+                <div class="_modalActions_1b912_40">
+                    <button type="button" id="close-modal-btn" class="_btn_2swea_1 _btnSecondary_2swea_48">Cancel</button>
+                    <button type="submit" class="_btn_2swea_1 _btnPrimary_2swea_42">Create Card</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="_toastContainer_183x2_1"></div>
+
     <script src="app.js"></script>
 </body>
 </html>
