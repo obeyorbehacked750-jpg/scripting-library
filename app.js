@@ -20,12 +20,39 @@ function encodePayload(payload) {
     const bytes = new TextEncoder().encode(jsonString);
     return encodeBase62(bytes);
 }
-
-const DEFAULT_BP = [
-    -11, -11, -11, -11, -100, -100, 0, 0, 0, -100, 0, -20, 0, 0, 0, -3, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-];
-
+"bp": [0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0,
+        4,
+        0,
+        1,
+        1,
+        1,
+        2,
+        1,
+        0,
+        0,
+        0,
+        100,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        20
+    ];
 function createFriendlyBattleUrl(scriptId) {
     const contentUrl = `https://scripting.donutquine.dev/api/scripts/${scriptId}/content`;
     const payload = { realm: "experiment:scripts", script: contentUrl, bp: DEFAULT_BP };
