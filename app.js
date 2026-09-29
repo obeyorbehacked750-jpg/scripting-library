@@ -1,37 +1,3 @@
-const BASE62_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-function encodeBase62(uint8Array) {
-    let value = 0n;
-    for (const byte of uint8Array) {
-        value = (value << 8n) | BigInt(byte);
-    }
-    if (value === 0n) return BASE62_ALPHABET[0];
-    let result = "";
-    while (value > 0n) {
-        const remainder = Number(value % 62n);
-        result = BASE62_ALPHABET[remainder] + result;
-        value = value / 62n;
-    }
-    return result;
-}
-
-function encodePayload(payload) {
-    const jsonString = JSON.stringify(payload);
-    const bytes = new TextEncoder().encode(jsonString);
-    return encodeBase62(bytes);
-}
-
-const DEFAULT_BP = [
-    0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 13, 0, 4, 0, 1, 1, 1, 2, 1, 0, 0, 0, 100, 0, 0, 1, 1, 1, 1, 20
-];
-
-function createFriendlyBattleUrl(scriptId) {
-    const contentUrl = `https://scripting.donutquine.dev/api/scripts/${scriptId}/content`;
-    const payload = { realm: "experiment:scripts", script: contentUrl, bp: DEFAULT_BP };
-    const encodedParams = encodePayload(payload);
-    return `nullsbrawl://createAndJoinRoom?roomname=params:v2:${encodedParams}&friendly=1&side=0`;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     loadScripts();
     
@@ -39,10 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('scripts-grid');
     if (grid) {
         grid.addEventListener('click', (e) => {
-            const button = e.target.closest('.start-battle-btn');
+            const button = e.target.closest('.open-script-btn');
             if (button) {
                 const link = button.getAttribute('data-link');
-                if (link) handleStartBattle(link);
+                if (link) {
+                    // Opens the script page in a new tab
+                    window.open(link, '_blank'); 
+                }
             }
         });
     }
@@ -71,13 +40,13 @@ function renderGrid(scripts) {
 
     scripts.forEach(script => {
         const li = document.createElement('li');
-        const battleLink = createFriendlyBattleUrl(script.id);
+        // New direct URL mapping
+        const scriptUrl = `https://scripting.nulls.gg/scripts/${script.id}`;
         
         li.innerHTML = `
             <article class="script-card">
                 <div class="card-content">
-                    <h3 class="card-title">${escapeHtml(script.title)}</h3>
-                    ${script.description ? `<p class="card-desc">${escapeHtml(script.description)}</p>` : ''}
+                    <h3 class="card-title">${escapeHtml(script.title)}</h3>${script.description ? `<p class="card-desc">${escapeHtml(script.description)}</p>` : ''}
                     
                     <div class="card-meta">
                         <div class="meta-item">
@@ -97,12 +66,15 @@ function renderGrid(scripts) {
                     </div>
                 </div>
                 
-                <button data-link="${battleLink}" class="btn btn-primary start-battle-btn">
-                    <!-- Play Icon -->
-                    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3"/>
+                <!-- Updated Button -->
+                <button data-link="${scriptUrl}" class="btn btn-primary open-script-btn">
+                    <!-- Changed to an external link icon -->
+                    <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px; margin-right:6px;">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
                     </svg>
-                    Start Battle
+                    Open
                 </button>
             </article>
         `;
@@ -110,43 +82,6 @@ function renderGrid(scripts) {
     });
 }
 
-// Make the function async to await the clipboard copy before launching the deep link
-async function handleStartBattle(link) {
-    try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(link);
-        }
-    } catch (err) {
-        console.warn("Clipboard copy failed", err);
-    }
-    
-    showToast("Opening Null's Brawl & link copied!");
-    
-    // Add a slight delay so the OS has time to process the deep link without interrupting the browser
-    setTimeout(() => {
-        window.location.href = link;
-    }, 150);
-}
-
-function showToast(message) {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    
-    toast.innerHTML = `
-        <svg class="icon-toast" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-        <span>${message}</span>
-    `;
-    
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-// Handle null/undefined values safely
 function escapeHtml(str) {
     if (str == null) return '';
     return String(str).replace(/[&<>"']/g, function(m) {
