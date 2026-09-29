@@ -19,5 +19,33 @@
     "description": "Скрипт От @SLem , В Данном Скрипте Игроки Если Стоят 0.5 Секунд То Становятся Кустами!",
     "author": "Anecodw",
     "date": "25.09.2026"
+  },
+  {
+    "id": "01a0c7d7-7546-7469-bb16-5e11fd024d61",
+    "title": "NANOPOWERS 1",
+    "description": "Enables all first nanopowers of all brawlers with nanopowers.",
+    "author": "ReareKit",
+    "date": "25.09.2026"
+  },
+  {
+    "id": "01a0c925-b7ac-7572-b761-e394917bb6a0",
+    "title": "NANOPOWERS 2",
+    "description": "Enables all second nanopowers of all brawlers with nanopowers.",
+    "author": "ReareKit",
+    "date": "25.09.2026"
+  }
+  {
+    "id": "01a0c926-da62-7da6-8771-a94c0731375c",
+    "title": "NANOPOWERS 3",
+    "description": "Enables all third nanopowers of all brawlers with nanopowers.",
+    "author": "ReareKit",
+    "date": "25.09.2026"
+  },
+  {
+    "id": "01a0c927-ad39-7010-be3d-cc13cadf2bc8",
+    "title": "ALL nanopowers",
+    "description": "Enables all third nanopowers of all brawlers with nanopowers.",
+    "author": "ReareKit",
+    "date": "23.09.2026"
   }
 ]
