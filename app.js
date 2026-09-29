@@ -20,39 +20,11 @@ function encodePayload(payload) {
     const bytes = new TextEncoder().encode(jsonString);
     return encodeBase62(bytes);
 }
-const DEFAULT_BP = [0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        100,
-        0,
-        0,
-        0,
-        0,
-        0,
-        13,
-        0,
-        4,
-        0,
-        1,
-        1,
-        1,
-        2,
-        1,
-        0,
-        0,
-        0,
-        100,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1,
-        20
-    ];
+
+const DEFAULT_BP = [
+    0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 13, 0, 4, 0, 1, 1, 1, 2, 1, 0, 0, 0, 100, 0, 0, 1, 1, 1, 1, 20
+];
+
 function createFriendlyBattleUrl(scriptId) {
     const contentUrl = `https://scripting.donutquine.dev/api/scripts/${scriptId}/content`;
     const payload = { realm: "experiment:scripts", script: contentUrl, bp: DEFAULT_BP };
@@ -62,6 +34,18 @@ function createFriendlyBattleUrl(scriptId) {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadScripts();
+    
+    // Use Event Delegation for dynamically created buttons
+    const grid = document.getElementById('scripts-grid');
+    if (grid) {
+        grid.addEventListener('click', (e) => {
+            const button = e.target.closest('.start-battle-btn');
+            if (button) {
+                const link = button.getAttribute('data-link');
+                if (link) handleStartBattle(link);
+            }
+        });
+    }
 });
 
 async function loadScripts() {
@@ -78,7 +62,12 @@ async function loadScripts() {
 
 function renderGrid(scripts) {
     const grid = document.getElementById('scripts-grid');
+    if (!grid) return;
+    
     grid.innerHTML = '';
+    
+    // Ensure scripts is an array before trying to iterate
+    if (!Array.isArray(scripts)) return;
 
     scripts.forEach(script => {
         const li = document.createElement('li');
@@ -119,19 +108,24 @@ function renderGrid(scripts) {
         `;
         grid.appendChild(li);
     });
-
-    document.querySelectorAll('.start-battle-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const link = e.currentTarget.getAttribute('data-link');
-            handleStartBattle(link);
-        });
-    });
 }
 
-function handleStartBattle(link) {
-    navigator.clipboard.writeText(link).catch(() => {});
-    window.location.href = link;
+// Make the function async to await the clipboard copy before launching the deep link
+async function handleStartBattle(link) {
+    try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(link);
+        }
+    } catch (err) {
+        console.warn("Clipboard copy failed", err);
+    }
+    
     showToast("Opening Null's Brawl & link copied!");
+    
+    // Add a slight delay so the OS has time to process the deep link without interrupting the browser
+    setTimeout(() => {
+        window.location.href = link;
+    }, 150);
 }
 
 function showToast(message) {
@@ -152,8 +146,10 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 3000);
 }
 
+// Handle null/undefined values safely
 function escapeHtml(str) {
-    return str.replace(/[&<>"']/g, function(m) {
+    if (str == null) return '';
+    return String(str).replace(/[&<>"']/g, function(m) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
     });
 }
