@@ -1,19 +1,5 @@
 [
   {
-    "id": "01a0baf4-a8b9-7057-b68b-25e6f62d9c09",
-    "title": "Neuron Network AI",
-    "description": "Actual Neuron Network inside Nulls Brawl. Used brawler as Starr nova.",
-    "author": "ChipyDev",
-    "date": "22.09.2026"
-  },
-  {
-    "id": "01a0d7f3-5779-7caa-98a0-b42c6c167920",
-    "title": "Spawn Car",
-    "description": "This script spawns a car in the middle of the map.",
-    "author": "ChipyDev",
-    "date": "25.09.2026"
-  },
-  {
     "id": "01a0e416-df6b-757b-a846-234d451cb5f6",
     "title": "Hide and seek",
     "description": "Скрипт От @SLem , В Данном Скрипте Игроки Если Стоят 0.5 Секунд То Становятся Кустами!",
@@ -44,8 +30,43 @@
   {
     "id": "01a0c927-ad39-7010-be3d-cc13cadf2bc8",
     "title": "ALL nanopowers",
-    "description": "Enables all third nanopowers of all brawlers with nanopowers.",
+    "description": "Enables all nanopowers of all brawlers with nanopowers.",
     "author": "ReareKit",
     "date": "23.09.2026"
+  },
+  {
+    "id": "01a0de1b-3d3e-77e6-944f-b5b5d6a67e97",
+    "title": "Safe Protection",
+    "description": "An upgrade to an old script from the same author, now with 30 waves, more robots, new bosses, and much more!",
+    "author": "CodwColl",
+    "date": "30.09.2026"
+  },
+  {
+    "id": "01a0c2c0-8167-7ed9-868e-b8f275df56a2",
+    "title": "Robot Protection",
+    "description": "In the middle of the map spawns a boss with 1,000,000 HP. To kill him, you must defeat his subordinates.",
+    "author": "CodwColl",
+    "date": "30.09.2026"
+  },
+  {
+    "id": "01a0cddc-c686-7b62-8744-ea5302773146",
+    "title": "No Attack",
+    "description": "Removes Attack, but you can still deal Damage at close range.",
+    "author": "kalgery",
+    "date": "30.09.2026"
+  },
+  {
+    "id": "01a0bb1a-f113-7bbe-9053-295ac933c8fc",
+    "title": "Unlimited Sprays",
+    "description": "Unlimited Sprays Available",
+    "author": "Leon4ikys",
+    "date": "30.09.2026"
+  },
+  {
+    "id": "01a032e2-78ee-79a4-b5b2-390bf3924f3f",
+    "title": "TNT on Pin",
+    "description": "Places TNT under your PIN using your PIN.",
+    "author": "ReareKit",
+    "date": "30.09.2026"
   }
 ]
