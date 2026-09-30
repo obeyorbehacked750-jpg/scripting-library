@@ -42,9 +42,6 @@ body {
     padding-inline: 24px;
 }
 
-/* ==========================================
-   HEADER
-   ========================================== */
 .header {
     height: var(--header-height);
     background-color: var(--bg-header);
@@ -83,9 +80,6 @@ body {
     letter-spacing: 0.05em;
 }
 
-/* ==========================================
-   MAIN LAYOUT & GRID
-   ========================================== */
 main {
     padding-top: calc(var(--header-height) + 40px);
     padding-bottom: 60px;
@@ -108,9 +102,6 @@ main {
     list-style: none;
 }
 
-/* ==========================================
-   CARDS
-   ========================================== */
 .script-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -169,9 +160,6 @@ main {
     color: var(--text-secondary);
 }
 
-/* ==========================================
-   BUTTONS
-   ========================================== */
 .btn {
     width: 100%;
     display: inline-flex;
@@ -201,9 +189,6 @@ main {
     height: 16px;
 }
 
-/* ==========================================
-   TOAST
-   ========================================== */
 .toast-container {
     position: fixed;
     top: calc(var(--header-height) + 20px);
@@ -248,7 +233,7 @@ main {
     left: 0; 
     right: 0; 
     bottom: 0;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
     z-index: 9999;
     display: flex;
