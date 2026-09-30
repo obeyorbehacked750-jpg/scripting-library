@@ -62,7 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (grid) {
         grid.addEventListener('click', (e) => {
             const button = e.target.closest('.open-script-btn');
+            
             if (button) {
+                e.preventDefault(); // <-- THIS strictly prevents the browser from opening a website/new tab
+                
                 const link = button.getAttribute('data-link');
                 if (link && iframe && modal) {
                     iframe.src = link;
