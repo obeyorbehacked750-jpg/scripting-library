@@ -160,6 +160,29 @@ main {
     color: var(--text-secondary);
 }
 
+.script-card.disabled-card {
+    opacity: 0.5;
+    filter: grayscale(0.6);
+}
+
+.script-card.disabled-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-color);
+    background-color: var(--bg-card);
+}
+
+.btn:disabled {
+    background-color: #222222;
+    color: #666666;
+    cursor: not-allowed;
+    border: 1px solid var(--border-color);
+}
+
+.btn:disabled:hover {
+    background-color: #222222;
+}
+
 .btn {
     width: 100%;
     display: inline-flex;
