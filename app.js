@@ -3,16 +3,17 @@ let currentScripts = [];
 const translations = {
     en: {
         pageTitle: "Available Scripts",
-        openBtn: "Open"
+        openBtn: "Open",
+        unavailableBtn: "Unavailable"
     },
     ru: {
         pageTitle: "Доступные скрипты",
-        openBtn: "Открыть"
+        openBtn: "Открыть",
+        unavailableBtn: "Недоступно"
     }
 };
 
 function getLanguage() {
-    // Default to Russian if hash is not explicitly #en
     return window.location.hash === '#en' ? 'en' : 'ru';
 }
 
@@ -28,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTranslations();
     loadScripts();
     
-    // Update language instantly when hash changes
     window.addEventListener('hashchange', () => {
         applyTranslations();
         renderGrid(currentScripts);
@@ -39,11 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const iframe = document.getElementById('script-iframe');
     const closeModalBtn = document.getElementById('close-modal');
 
-    // Safe Modal Close Logic
     const closeModal = () => {
         if (!modal) return;
         modal.classList.remove('show');
-        // Clear iframe source after transition to stop background processes/audio
         setTimeout(() => { if (iframe) iframe.src = ''; }, 300);
     };
 
@@ -51,20 +49,18 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModalBtn.addEventListener('click', closeModal);
     }
 
-    // Close modal when clicking on the dark backdrop outside the iframe
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
     }
 
-    // Event Delegation for Opening the Iframe
     if (grid) {
         grid.addEventListener('click', (e) => {
             const button = e.target.closest('.open-script-btn');
             
-            if (button) {
-                e.preventDefault(); // <-- THIS strictly prevents the browser from opening a website/new tab
+            if (button && !button.disabled) {
+                e.preventDefault();
                 
                 const link = button.getAttribute('data-link');
                 if (link && iframe && modal) {
@@ -88,20 +84,27 @@ async function loadScripts() {
 
 function renderGrid(scripts) {
     const grid = document.getElementById('scripts-grid');
-    if (!grid) return;
+    if (!grid || !Array.isArray(scripts)) return;
     
     grid.innerHTML = '';
-    if (!Array.isArray(scripts)) return;
+
+    const sortedScripts = [...scripts].sort((a, b) => {
+        const aUnavailable = !!a.unavailable;
+        const bUnavailable = !!b.unavailable;
+        return aUnavailable - bUnavailable;
+    });
 
     const lang = getLanguage();
     const openText = translations[lang].openBtn;
+    const unavailableText = translations[lang].unavailableBtn;
 
-    scripts.forEach(script => {
+    sortedScripts.forEach(script => {
         const li = document.createElement('li');
         const scriptUrl = `https://scripting.nulls.gg/scripts/${script.id}`;
+        const isUnavailable = !!script.unavailable;
         
         li.innerHTML = `
-            <article class="script-card">
+            <article class="script-card ${isUnavailable ? 'disabled-card' : ''}">
                 <div class="card-content">
                     <h3 class="card-title">${escapeHtml(script.title)}</h3>
                     ${script.description ? `<p class="card-desc">${escapeHtml(script.description)}</p>` : ''}
@@ -122,13 +125,14 @@ function renderGrid(scripts) {
                     </div>
                 </div>
                 
-                <button data-link="${scriptUrl}" class="btn btn-primary open-script-btn">
+                <button data-link="${scriptUrl}" class="btn btn-primary open-script-btn" ${isUnavailable ? 'disabled' : ''}>
+                    ${!isUnavailable ? `
                     <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px; margin-right:6px;">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                         <polyline points="15 3 21 3 21 9"></polyline>
                         <line x1="10" y1="14" x2="21" y2="3"></line>
                     </svg>
-                    ${openText}
+                    ${openText}` : unavailableText}
                 </button>
             </article>
         `;
